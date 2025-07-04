@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Responsive Web Project</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #ffe5ec, #ffc2d1);
+      color: #333;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .content {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+
+    .carousel-section, .quiz-section {
+      flex: 1;
+      min-width: 300px;
+    }
+
+    .carousel {
+      position: relative;
+      overflow: hidden;
+      border-radius: 15px;
+      aspect-ratio: 16 / 9;
+      background-color: #eee;
+    }
+
+    .carousel img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 15px;
+      transition: opacity 1s ease-in-out;
+      opacity: 0;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    .carousel img.active {
+      opacity: 1;
+      position: relative;
+    }
+
+    .caption {
+      margin-top: 10px;
+      font-size: 16px;
+      color: #666;
+    }
+
+    .dots {
+      margin-top: 10px;
+    }
+
+    .dot {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      background-color: #ccc;
+      border-radius: 50%;
+      margin: 0 5px;
+      cursor: pointer;
+    }
+
+    .dot.active {
+      background-color: #ff94af;
+    }
+
+    .buttons {
+      margin-top: 15px;
+    }
+
+    .buttons button {
+      padding: 10px 20px;
+      margin: 5px;
+      background-color: #ff94af;
+      border: none;
+      color: white;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    .buttons button:hover {
+      background-color: #e6738d;
+    }
+
+    .quiz {
+      margin-top: 10px;
+      text-align: left;
+    }
+
+    .question {
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+
+    .options button {
+      display: block;
+      width: 100%;
+      margin: 5px 0;
+      padding: 10px;
+      background-color: #ff94af;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .options button:hover {
+      background-color: #e6738d;
+    }
+
+    #result {
+      font-size: 18px;
+      margin-top: 20px;
+      text-align: center;
+      position: relative;
+    }
+
+    .celebrate {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(255, 255, 255, 0.8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 2rem;
+      color: #e91e63;
+      z-index: 1000;
+      animation: sparkle 1s ease-in-out infinite alternate;
+    }
+
+    @keyframes sparkle {
+      0% { background: rgba(255, 255, 255, 0.8); }
+      100% { background: rgba(255, 245, 250, 0.95); }
+    }
+
+    #jokeBox {
+      margin-top: 40px;
+      padding: 15px;
+      background: #f0f0f0;
+      border-radius: 10px;
+      font-style: italic;
+      text-align: center;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 40px;
+      font-size: 14px;
+      color: #999;
+    }
+
+    @media (max-width: 768px) {
+      .content {
+        flex-direction: column;
+      }
+
+      h1 {
+        font-size: 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Responsive Web App</h1>
+
+    <div class="content">
+      <!-- Carousel Section -->
+      <div class="carousel-section">
+        <div class="carousel">
+          <img id="carouselImage" class="active" src="" alt="Carousel Image">
+        </div>
+        <div class="caption" id="carouselCaption"></div>
+        <div class="dots" id="dots"></div>
+        <div class="buttons">
+          <button onclick="prevImage()">Previous</button>
+          <button onclick="nextImage()">Next</button>
+        </div>
+      </div>
+
+      <!-- Quiz Section -->
+      <div class="quiz-section">
+        <div class="quiz">
+          <div id="question" class="question"></div>
+          <div id="options" class="options"></div>
+          <div id="result"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Joke Box -->
+    <div id="jokeBox">Loading a fun joke for you...</div>
+
+    <div class="footer">
+      &copy; 2025 Responsive Web Project. All rights reserved.
+    </div>
+  </div>
+
+  <div id="celebration" class="celebrate" style="display:none;"></div>
+
+  <script>
+    const carouselData = [
+      { src: 'https://thumbs.dreamstime.com/b/fall-forest-view-ontario-canada-beautiful-color-branches-taken-dudas-conservation-area-62007290.jpg', caption: 'A beautiful forest view' },
+      { src: 'https://media.istockphoto.com/id/500177214/photo/moraine-lake-in-banff-national-park-canada.jpg?s=612x612&w=0&k=20&c=Fh7pn-ehTArjENrATrs1Y8vD5bc7n1MWe19_NbSHbCU=', caption: 'Peaceful mountain lake' },
+      { src: 'https://images.nobroker.in/images/8a9fb38277c8ca470177c8e62f710cc3/8a9fb38277c8ca470177c8e62f710cc3_26710_624229_large.jpg', caption: 'Serene country road' },
+      { src: 'https://image10.photobiz.com/8495/28_20220226150052_6422823_xlarge.jpg', caption: 'Adorable golden retriever' }
+    ];
+
+    let index = 0;
+    const imgElement = document.getElementById("carouselImage");
+    const captionElement = document.getElementById("carouselCaption");
+    const dotsContainer = document.getElementById("dots");
+
+    function showImage(i) {
+      imgElement.style.opacity = 0;
+      setTimeout(() => {
+        imgElement.src = carouselData[i].src;
+        captionElement.innerText = carouselData[i].caption;
+        updateDots(i);
+        imgElement.style.opacity = 1;
+      }, 300);
+    }
+
+    function updateDots(i) {
+      dotsContainer.innerHTML = '';
+      carouselData.forEach((_, idx) => {
+        const dot = document.createElement('span');
+        dot.classList.add('dot');
+        if (idx === i) dot.classList.add('active');
+        dot.onclick = () => { index = idx; showImage(index); };
+        dotsContainer.appendChild(dot);
+      });
+    }
+
+    function nextImage() {
+      index = (index + 1) % carouselData.length;
+      showImage(index);
+    }
+
+    function prevImage() {
+      index = (index - 1 + carouselData.length) % carouselData.length;
+      showImage(index);
+    }
+
+    setInterval(nextImage, 5000);
+    showImage(index);
+
+    // Quiz Logic
+    const quizData = [
+      {
+        question: "Which HTML tag is used to define an internal style sheet?",
+        options: ["<script>", "<css>", "<style>", "<link>"],
+        answer: "<style>"
+      },
+      {
+        question: "Which property is used to change the background color in CSS?",
+        options: ["color", "bgcolor", "background-color", "background"],
+        answer: "background-color"
+      },
+      {
+        question: "Which of the following is a JavaScript framework?",
+        options: ["Laravel", "Django", "React", "Flask"],
+        answer: "React"
+      },
+      {
+        question: "What does the 'flex' value do in CSS display property?",
+        options: ["Creates a table", "Enables flexbox layout", "Floats elements", "Centers text"],
+        answer: "Enables flexbox layout"
+      },
+      {
+        question: "Which method is used to fetch data from an API in JavaScript?",
+        options: ["getData()", "fetch()", "retrieve()", "request()"],
+        answer: "fetch()"
+      }
+    ];
+
+    let current = 0;
+    let score = 0;
+
+    function loadQuestion() {
+      const currentQuiz = quizData[current];
+      document.getElementById("question").innerText = currentQuiz.question;
+      const optionsContainer = document.getElementById("options");
+      optionsContainer.innerHTML = "";
+
+      currentQuiz.options.forEach(option => {
+        const btn = document.createElement("button");
+        btn.innerText = option;
+        btn.onclick = () => selectAnswer(option);
+        optionsContainer.appendChild(btn);
+      });
+    }
+
+    function selectAnswer(selected) {
+      if (selected === quizData[current].answer) {
+        score++;
+      }
+      current++;
+      if (current < quizData.length) {
+        loadQuestion();
+      } else {
+        document.getElementById("question").style.display = 'none';
+        document.getElementById("options").style.display = 'none';
+        let resultText = `You scored ${score}/${quizData.length}`;
+        if (score === 5) {
+          resultText += " 🎉 Hurray! You're a Web Dev Pro!";
+          document.getElementById("celebration").style.display = 'flex';
+        } else if (score === 4) {
+          resultText += " 👏 Great job! Just one step away!";
+        } else if (score === 3) {
+          resultText += " 🙂 Good effort! Keep practicing!";
+        } else {
+          resultText += " 😢 Better luck next time!";
+        }
+        document.getElementById("result").innerText = resultText;
+      }
+    }
+
+    loadQuestion();
+
+    // Joke API
+    fetch("https://icanhazdadjoke.com/", {
+      headers: { Accept: "application/json" }
+    })
+    .then(res => res.json())
+    .then(data => {
+      document.getElementById("jokeBox").innerText = data.joke;
+    })
+    .catch(() => {
+      document.getElementById("jokeBox").innerText = "Failed to load joke. Try again later!";
+    });
+  </script>
+</body>
+</html>
