@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prashansa Sharma | Portfolio</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Poppins', sans-serif; background-color: #1c1c1e; color: #f0f0f5; line-height: 1.6; }
+    a { color: #66fcf1; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    header { background: #121212; padding: 20px; border-bottom: 1px solid #333; }
+    nav { display: flex; justify-content: space-between; align-items: center; }
+    nav h1 { color: #66fcf1; font-size: 1.8rem; }
+    nav ul { list-style: none; display: flex; gap: 20px; }
+    nav ul li a { font-size: 1rem; font-weight: 500; }
+    .about { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 50px 20px; }
+    .about img {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 20px;
+      border: 4px solid #66fcf1;
+      box-shadow: 0 4px 20px rgba(102, 252, 241, 0.5);
+      transition: transform 0.3s ease;
+    }
+    .about img:hover {
+      transform: scale(1.05);
+    }
+    .about h2 { font-size: 2rem; margin-bottom: 10px; }
+    .about p { max-width: 600px; font-size: 1.1rem; color: #ccc; }
+    .projects, .contact { padding: 50px 20px; text-align: center; }
+    .projects h2, .contact h2 { font-size: 2rem; margin-bottom: 40px; }
+    .project-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
+    .project-card { background: #292929; padding: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); transition: transform 0.3s ease; }
+    .project-card:hover { transform: translateY(-5px); }
+    .project-card h3 { color: #66fcf1; margin-bottom: 10px; }
+    .project-card p { color: #ddd; font-size: 0.95rem; margin-bottom: 15px; }
+    .project-card a { color: #f0f0f5; background: #66fcf1; padding: 8px 12px; border-radius: 6px; font-weight: bold; display: inline-block; }
+    form { display: flex; flex-direction: column; gap: 15px; max-width: 400px; margin: 0 auto; }
+    input, textarea { padding: 10px 15px; border: none; border-radius: 6px; background-color: #2f2f2f; color: #fff; font-size: 1rem; }
+    input:focus, textarea:focus { outline: 2px solid #66fcf1; }
+    button { padding: 12px; background: #66fcf1; border: none; border-radius: 6px; font-weight: bold; font-size: 1rem; color: #121212; cursor: pointer; }
+    .email-note { margin-top: 20px; color: #ccc; }
+    footer { text-align: center; padding: 20px; background: #121212; font-size: 0.9rem; border-top: 1px solid #333; }
+    @media (max-width: 768px) {
+      .about { padding: 40px 10px; }
+      .project-grid { grid-template-columns: 1fr; }
+      nav ul { flex-direction: column; gap: 10px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <h1>Prashansa Sharma</h1>
+      <ul>
+        <li><a href="index.html">About</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="about">
+    <img src="myself.jpg" alt="Prashansa Sharma">
+    <div>
+      <h2>Hello, I'm Prashansa Sharma</h2>
+      <p>A passionate web developer with skills in HTML, CSS, JavaScript and responsive design. I build interactive, user-friendly, and dynamic web apps with modern UI design principles.</p>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Prashansa Sharma. All rights reserved.</p>
+  </footer>
+</body>
+</html>
+
+<!-- projects.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projects | Prashansa Sharma</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/todo.js" defer></script>
+  <script src="js/filter.js" defer></script>
+  <style>
+    .todo-section, .filter-section {
+      background: #1c1c1e;
+      margin: 30px auto;
+      padding: 30px;
+      border-radius: 10px;
+      max-width: 700px;
+    }
+    .todo-section input[type="text"] {
+      width: 70%; padding: 10px; border-radius: 5px; border: none;
+    }
+    .todo-section button {
+      padding: 10px 15px;
+    }
+    #task-list li {
+      background: #292929; padding: 10px; margin-top: 10px;
+      border-radius: 6px; display: flex; align-items: center;
+      justify-content: space-between;
+    }
+    .completed { text-decoration: line-through; color: #888; }
+    .filter-section select {
+      padding: 10px;
+      margin: 10px;
+      border-radius: 6px;
+      background-color: #2f2f2f;
+      color: white;
+    }
+    .product-card {
+      background: #292929;
+      padding: 15px;
+      margin-top: 10px;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <h1>Projects</h1>
+      <ul>
+        <li><a href="index.html">About</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="projects">
+    <h2>My Projects</h2>
+    <div class="project-card">
+      <h3>To-Do List App</h3>
+      <div class="todo-section">
+        <input type="text" id="task-input" placeholder="Enter a new task...">
+        <button id="add-task">Add</button>
+        <ul id="task-list"></ul>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <h3>Product Filter Page</h3>
+      <div class="filter-section">
+        <label>Category:</label>
+        <select id="category-filter">
+          <option>All</option>
+          <option>Electronics</option>
+          <option>Fashion</option>
+        </select>
+
+        <label>Sort By:</label>
+        <select id="sort-option">
+          <option value="price-asc">Price: Low to High</option>
+          <option value="price-desc">Price: High to Low</option>
+          <option value="rating">Rating</option>
+        </select>
+
+        <div id="product-list"></div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Prashansa Sharma. All rights reserved.</p>
+  </footer>
+</body>
+</html>
+
+<!-- contact.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact | Prashansa Sharma</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/form.js" defer></script>
+</head>
+<body>
+  <header>
+    <nav>
+      <h1>Contact</h1>
+      <ul>
+        <li><a href="index.html">About</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="contact">
+    <h2>Get in Touch</h2>
+    <form id="contact-form">
+      <input type="text" placeholder="Your Name" required>
+      <input type="email" placeholder="Your Email" required>
+      <textarea rows="5" placeholder="Your Message" required></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+    <p class="email-note">You can also email me directly at <a href="mailto:prashansasharma0712@gmail.com">prashansasharma0712@gmail.com</a></p>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Prashansa Sharma. All rights reserved.</p>
+  </footer>
+</body>
+</html>
+             //form//
+ document.addEventListener('DOMContentLoaded', () => {
+  const form = document.getElementById('contact-form');
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const [name, email, message] = form.querySelectorAll('input, textarea');
+
+    if (!name.value.trim() || !email.value.trim() || !message.value.trim()) {
+      alert('Please fill in all fields.');
+      return;
+    }
+
+    const emailPattern = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/;
+    if (!emailPattern.test(email.value)) {
+      alert('Please enter a valid email address.');
+      return;
+    }
+
+    alert('Message sent successfully!');
+    form.reset();
+  });
+});
+     //todo
+document.addEventListener('DOMContentLoaded', () => {
+  const taskInput = document.getElementById('task-input');
+  const addBtn = document.getElementById('add-task');
+  const taskList = document.getElementById('task-list');
+
+  let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+
+  const renderTasks = () => {
+    taskList.innerHTML = '';
+    tasks.forEach((task, index) => {
+      const li = document.createElement('li');
+      li.innerHTML = `
+        <input type="checkbox" data-index="${index}" ${task.completed ? 'checked' : ''}>
+        <span class="${task.completed ? 'completed' : ''}">${task.text}</span>
+        <button data-index="${index}" class="delete-btn">X</button>
+      `;
+      taskList.appendChild(li);
+    });
+  };
+
+  addBtn.addEventListener('click', () => {
+    const taskText = taskInput.value.trim();
+    if (taskText) {
+      tasks.push({ text: taskText, completed: false });
+      localStorage.setItem('tasks', JSON.stringify(tasks));
+      taskInput.value = '';
+      renderTasks();
+    }
+  });
+
+  taskList.addEventListener('click', (e) => {
+    const index = e.target.dataset.index;
+    if (e.target.type === 'checkbox') {
+      tasks[index].completed = e.target.checked;
+    } else if (e.target.classList.contains('delete-btn')) {
+      tasks.splice(index, 1);
+    }
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+    renderTasks();
+  });
+
+  renderTasks();
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  const categoryFilter = document.getElementById('category-filter');
+  const sortOption = document.getElementById('sort-option');
+  const productList = document.getElementById('product-list');
+
+  const products = [
+    { name: 'Phone', category: 'Electronics', price: 500, rating: 4.2 },
+    { name: 'Shoes', category: 'Fashion', price: 120, rating: 4.6 },
+    { name: 'Watch', category: 'Fashion', price: 200, rating: 4.4 },
+    { name: 'Laptop', category: 'Electronics', price: 1000, rating: 4.8 },
+  ];
+     //filter//
+  const renderProducts = (filtered) => {
+    productList.innerHTML = '';
+    filtered.forEach(product => {
+      const div = document.createElement('div');
+      div.className = 'product-card';
+      div.innerHTML = `
+        <h4>${product.name}</h4>
+        <p>Category: ${product.category}</p>
+        <p>Price: $ ${product.price}</p>
+        <p>Rating: ${product.rating}</p>
+      `;
+      productList.appendChild(div);
+    });
+  };
+
+  const applyFilters = () => {
+    let filtered = [...products];
+
+    const category = categoryFilter.value;
+    if (category !== 'All') {
+      filtered = filtered.filter(p => p.category === category);
+    }
+
+    const sort = sortOption.value;
+    if (sort === 'price-asc') {
+      filtered.sort((a, b) => a.price - b.price);
+    } else if (sort === 'price-desc') {
+      filtered.sort((a, b) => b.price - a.price);
+    } else if (sort === 'rating') {
+      filtered.sort((a, b) => b.rating - a.rating);
+    }
+
+    renderProducts(filtered);
+  };
+
+  categoryFilter.addEventListener('change', applyFilters);
+  sortOption.addEventListener('change', applyFilters);
+  renderProducts(products);
+});
+
