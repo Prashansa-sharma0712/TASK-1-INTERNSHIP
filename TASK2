@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WebDev Task 2 - Responsive Contact & To-Do App</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    body {
+      background: linear-gradient(135deg, #fceabb 0%, #f8b500 100%);
+      color: #333;
+      padding: 2rem;
+      background-image: repeating-linear-gradient(
+        to bottom,
+        #fff8e1,
+        #fff8e1 40px,
+        #f0e6c7 40px,
+        #f0e6c7 41px
+      );
+      background-size: 100% 42px;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 2rem;
+      color: #4b2c20;
+    }
+    .container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+    @media (max-width: 768px) {
+      .container {
+        grid-template-columns: 1fr;
+      }
+    }
+    .contact-form {
+      background: #fff3cd;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      border: 2px dashed #f0ad4e;
+    }
+    .contact-form h2::before {
+      content: "📬 ";
+    }
+    .contact-form label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+    .contact-form input {
+      width: 100%;
+      padding: 0.8rem;
+      margin-bottom: 1rem;
+      border: 1px solid #f0ad4e;
+      border-radius: 5px;
+      background-color: #fffbe6;
+    }
+    .contact-form button {
+      background-color: #d9534f;
+      color: #fff;
+      border: none;
+      padding: 0.8rem 1.5rem;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .contact-form button:hover {
+      background-color: #c9302c;
+    }
+    .todo-app {
+      background: #e2f0cb;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      border: 2px solid #a4c639;
+    }
+    .todo-app h2::before {
+      content: "📝 ";
+    }
+    .todo-app input {
+      width: 70%;
+      padding: 0.8rem;
+      border: 1px solid #a4c639;
+      border-radius: 5px;
+      background-color: #fafff0;
+    }
+    .todo-app button {
+      padding: 0.8rem 1rem;
+      margin-left: 1rem;
+      background: #5cb85c;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .todo-app ul {
+      margin-top: 1rem;
+      list-style-type: none;
+    }
+    .todo-app li {
+      margin-bottom: 0.5rem;
+      padding: 0.5rem 1rem;
+      background: #fff;
+      border-left: 4px solid #5cb85c;
+      border-radius: 5px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 1px 1px 5px rgba(0,0,0,0.05);
+      animation: fadeIn 0.3s ease-in;
+    }
+    .todo-app li button {
+      background: #d9534f;
+      padding: 0.4rem 0.6rem;
+      color: #fff;
+      border: none;
+      border-radius: 3px;
+      transition: background 0.2s;
+    }
+    .todo-app li button:hover {
+      background: #c9302c;
+    }
+    .todo-app li::before {
+      content: '✔️';
+      margin-right: 0.5rem;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(5px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <h1>Interactive Web Components: Contact & To-Do</h1>
+  <div class="container">
+    <div class="contact-form">
+      <h2>Contact Form</h2>
+      <form id="contactForm">
+        <label for="name">Name</label>
+        <input type="text" id="name" required />
+        <label for="email">Email</label>
+       <input type="email" id="email" placeholder="e.g. user@example.com" pattern="^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$" required />
+
+
+        <label for="phone">📞 Phone Number</label>
+        <input type="tel" id="phone" pattern="[0-9]{10}" placeholder="e.g. 9876543210" required />
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+    <div class="todo-app">
+      <h2>To-Do List</h2>
+      <input type="text" id="todoInput" placeholder="Enter task..." />
+      <button onclick="addTodo()">Add</button>
+      <ul id="todoList"></ul>
+    </div>
+  </div>
+  <script>
+    document.getElementById("contactForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!name || !emailRegex.test(email)) {
+        alert("Please enter a valid name and email.");
+        return;
+      }
+      alert("Form submitted successfully!");
+      this.reset();
+    });
+    function addTodo() {
+      const input = document.getElementById("todoInput");
+      const task = input.value.trim();
+      if (task === "") return;
+      const li = document.createElement("li");
+      li.textContent = task;
+      const btn = document.createElement("button");
+      btn.textContent = "🗑️";
+      btn.onclick = () => li.remove();
+      li.appendChild(btn);
+      document.getElementById("todoList").appendChild(li);
+      input.value = "";
+      saveTodos();
+    }
+    function saveTodos() {
+      const items = [];
+      document.querySelectorAll("#todoList li").forEach(li => {
+        items.push(li.childNodes[0].textContent);
+      });
+      localStorage.setItem("todoItems", JSON.stringify(items));
+    }
+    function loadTodos() {
+      const saved = JSON.parse(localStorage.getItem("todoItems")) || [];
+      saved.forEach(task => {
+        const li = document.createElement("li");
+        li.textContent = task;
+        const btn = document.createElement("button");
+        btn.textContent = "🗑️";
+        btn.onclick = () => {
+          li.remove();
+          saveTodos();
+        };
+        li.appendChild(btn);
+        document.getElementById("todoList").appendChild(li);
+      });
+    }
+    window.onload = loadTodos;
+  </script>
+</body>
+</html>
